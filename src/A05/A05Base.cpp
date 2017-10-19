@@ -2,10 +2,12 @@
 #include <SDL_image.h>
 #include <SDL_ttf.h>
 #include <SDL_mixer.h>
+#include <time.h>
 
 //Game general information
 #define SCREEN_WIDTH 800
 #define SCREEN_HEIGHT 600
+#define FPS 60
 
 int main(int, char*[]) {
 
@@ -15,7 +17,7 @@ int main(int, char*[]) {
 	const Uint8 mixFlags{ MIX_INIT_MP3 | MIX_INIT_FLAC };
 	if ( !(Mix_Init(mixFlags) & mixFlags)) throw "laputa";
 
-	
+	if (TTF_Init() != 0) throw "no es pot inicialitzar el ttf";
 
 	// --- WINDOW ---
 	SDL_Window *window{ SDL_CreateWindow("SDL...", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN) };
@@ -37,14 +39,38 @@ int main(int, char*[]) {
 	if (bgTexture == nullptr) throw "No s'han pogut crear les textures";
 	SDL_Rect bgRect{ 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT };
 
-	SDL_Texture *playerTexture{ IMG_LoadTexture(renderer, "../../res/img/kintoun.png") };	//Player
+	//SDL_Texture *playerTexture{ IMG_LoadTexture(renderer, "../../res/img/kintoun.png") };	//Player
 
-	if (playerTexture == nullptr) throw "No s'han pogut crear les textures";
-	SDL_Rect playerRect{ 0, 0, 350, 189 };
+	//if (playerTexture == nullptr) throw "No s'han pogut crear les textures";
+	//SDL_Rect playerRect{ 0, 0, 350, 189 };
 
 	SDL_Rect playerTarget{ 0,0,100,100 };
 
 		// --- Animated Sprite ---
+
+	SDL_Texture *playerTexture{ IMG_LoadTexture(renderer, "../../res/img/sp01.png") };
+	SDL_Rect playerRect, playerPosition;
+	int textWidth, textHeight, frameWidth, frameHeight;
+	SDL_QueryTexture(playerTexture, NULL, NULL, &textWidth, &textHeight);
+	frameWidth = textWidth / 6;
+	frameHeight = textHeight / 1;
+
+	playerPosition.x = playerPosition.y = 0;
+
+	playerRect.x = playerRect.y = 0;
+
+	playerPosition.h = playerRect.h = frameHeight;
+
+	playerPosition.w = playerRect.w = frameWidth;
+
+	int frameTime = 0;
+
+
+
+
+
+
+
 
 	// --- TEXT ---
 
@@ -76,7 +102,12 @@ int main(int, char*[]) {
 
 
 
+	//--TIME--
 
+	clock_t lastTime = clock();
+
+	float timedown = 10;
+	float deltaTime = 0;
 
 
 
@@ -103,6 +134,33 @@ int main(int, char*[]) {
 
 		// UPDATE
 
+
+
+		frameTime++;
+
+		if (FPS / frameTime <= 9)
+		{
+
+			frameTime = 0;
+			playerRect.x += frameWidth;
+			if (playerRect.x >= textWidth)
+				playerRect.x = 0;
+
+
+
+		}
+
+		deltaTime = (clock() - lastTime);
+		lastTime = clock();
+		deltaTime /= CLOCKS_PER_SEC;
+		timedown -= deltaTime;
+
+
+
+
+
+
+
 		// DRAW
 			//Background
 		SDL_RenderClear(renderer);
@@ -115,7 +173,19 @@ int main(int, char*[]) {
 
 
 			//Animated Sprite
+		SDL_RenderCopy(renderer, playerTexture, &playerRect, &playerPosition);
+		//SDL
+		
+
+
+
+
+
+
 		SDL_RenderPresent(renderer);
+
+		
+
 
 	}
 
@@ -132,4 +202,11 @@ int main(int, char*[]) {
 	Mix_Quit();
 	SDL_Quit();
 	return 0;
+
+
+#pragma region "satanas"
+
+
+	// yow
+#pragma endregion
 }
