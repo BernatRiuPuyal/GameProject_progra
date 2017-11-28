@@ -1,0 +1,43 @@
+<enemyList>
+
+	<enemy nom = "pep">
+	
+		<vit> 100 </vit>
+		<atDam> 10 </atDam>
+		<def> 50 </def>
+		<frqAt> 1.0 </frqAt>
+		<exp> 500 </exp>
+
+  </enemy>
+	
+	<enemy nom = "pau">
+	
+		<vit> 101 </vit>
+		<atDam> 11 </atDam>
+		<def> 51 </def>
+		<frqAt> 1.1 </frqAt>
+		<exp> 501 </exp>
+
+  </enemy>
+	
+	<enemy nom = "pol">
+	
+		<vit> 102 </vit>
+		<atDam> 12 </atDam>
+		<def> 52 </def>
+		<frqAt> 1.2 </frqAt>
+		<exp> 502 </exp>
+
+  </enemy>
+
+    <enemy nom = "jan">
+
+      <vit> 103 </vit>
+      <atDam> 13 </atDam>
+      <def> 53 </def>
+      <frqAt> 1.3 </frqAt>
+      <exp> 503 </exp>
+
+    </enemy>
+
+</enemyList>
