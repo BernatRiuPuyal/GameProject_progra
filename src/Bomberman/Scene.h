@@ -6,13 +6,23 @@
 #include <iostream>
 #include "Renderer.h"
 
+enum state { MENU }; //COMPLETAR
+
 class Scene
 {	
 
-protected: 
+protected:
+//ATR
 	//size a Constants.h
+	SDL_Rect background;
+	//SDL_Mixer music;
 
 public:
+
+//ATR
+	state estado;
+
+//FNC
 	Scene();
 
 	virtual void setup() = 0;
