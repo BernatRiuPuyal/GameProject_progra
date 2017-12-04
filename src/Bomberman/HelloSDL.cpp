@@ -1,4 +1,4 @@
-#include <SDL.h>
+/*#include <SDL.h>
 #include <exception>
 #include <iostream>
 #include <string>
@@ -56,4 +56,4 @@ int main(int argc, char *argv[]) {
 		std::cin.get();
 	}
 	return 0;
-}
+}*/
