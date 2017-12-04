@@ -4,8 +4,6 @@
 #include <string>
 
 
-
-
 #define ASSERT(cnd, msg) if (cnd) throw std::exception(&(msg)[0]);
 
 #define SCREEN_WIDTH 640
@@ -59,3 +57,5 @@ int main(int argc, char *argv[]) {
 	}
 	return 0;
 }
+
+//
