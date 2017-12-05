@@ -5,8 +5,9 @@
 #include <SDL_mixer.h>
 #include <iostream>
 #include "Renderer.h"
+#include "collisions.hpp"
 
-enum state { MENU }; //COMPLETAR
+enum state { LOOP, GOTORANKING, PLAY, QUIT }; //COMPLETAR
 
 class Scene
 {	
@@ -14,8 +15,12 @@ class Scene
 protected:
 //ATR
 	//size a Constants.h
+
 	SDL_Rect background;
+
 	//SDL_Mixer music;
+
+	SDL_Event event;
 
 public:
 

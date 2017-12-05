@@ -95,5 +95,8 @@
     <ClInclude Include="..\..\..\GameProject_progra\src\Bomberman\Types.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
+    <ClInclude Include="collisions.hpp">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

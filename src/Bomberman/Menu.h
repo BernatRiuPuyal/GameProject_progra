@@ -6,17 +6,29 @@
 #include <SDL_ttf.h>
 #include <SDL_mixer.h>
 #include <time.h>
+
+struct button {
+
+	SDL_Rect pos;
+	std::string text;
+
+	state _state;
+};
+
 class Menu :
 	public Scene
 {
 public:
 	//ATR
-	SDL_Rect buttonL1;
-	SDL_Rect buttonL2;
-	SDL_Rect buttonRanking;
-	SDL_Rect buttonQuit;
-	SDL_Rect buttonSound;
+	button buttonPlay;
+	button buttonRanking;
+	button buttonQuit;
+	button buttonSound;
 
+private:
+	static const int buttonNum = 4;
+	button* list[buttonNum];
+public:
 	//FNC
 	Menu();
 	~Menu();

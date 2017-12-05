@@ -14,6 +14,10 @@ const std::string PLAY_TEXT_SCORE_PLAYER1 = "PLAY_TEXT_SCORE_PLAYER1";
 const std::string MENU_TEXT_BUTTON_PLAY = "MENU_TEXT_BUTTON_PLAY";
 const std::string MENU_TEXT_BUTTON_EXIT = "MENU_TEXT_BUTTON_EXIT";
 
+const std::string MENU_TEXT_BUTTON_RANKING = "MENU_TEXT_BUTTON_RANKING";
+const std::string MENU_TEXT_BUTTON_SOUND = "MENU_TEXT_BUTTON_SOUND";
+
+
 const std::string PATH_IMG = "../../res/img/";
 const std::string PATH_FONT = "../../res/ttf/";
 const std::string PATH_AU = "../../res/au/";
