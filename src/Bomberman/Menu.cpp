@@ -1,6 +1,12 @@
 #include "Menu.h"
 #include "Constants.h"
-
+#include <SDL.h>
+#include <iostream>
+#include <string>		
+#include <SDL_image.h>
+#include <SDL_ttf.h>
+#include <SDL_mixer.h>
+#include <time.h>
 
 
 Menu::Menu()
