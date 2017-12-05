@@ -19,14 +19,14 @@ Menu::Menu()
 
 	Text textL1;
 	textL1.id = "MENU_TEXT_BUTTON_PLAY1"; //perque no deixa usar la constant?
-	textL1.text = "Level 1";
+	textL1.text = "Level A";
 	textL1.color = Color{ 0, 0, 0, 0 };
 	Renderer::Instance()->LoadTextureText(font.id, textL1);
 	buttonL1 = SDL_Rect{ 350, 100, 200, 200 };					//PUESTO AL TUNTUN, ARREGLAR aqui y en el resto
 
 	Text textL2;
 	textL2.id = "MENU_TEXT_BUTTON_PLAY2"; //perque no deixa usar la constant?
-	textL2.text = "Level 2";
+	textL2.text = "Level B";
 	textL2.color = Color{ 0, 0, 0, 0 };
 	Renderer::Instance()->LoadTextureText(font.id, textL2);
 	buttonL2 = SDL_Rect{ 350, 200, 200, 200 };
@@ -72,7 +72,7 @@ void Menu::draw()
 	Renderer::Instance()->PushImage("MENU_TEXT_BUTTON_PLAY1", buttonL1);
 	Renderer::Instance()->PushImage("MENU_TEXT_BUTTON_PLAY2", buttonL2);
 	Renderer::Instance()->PushImage("MENU_TEXT_BUTTON_RANKING", buttonRanking);
-	Renderer::Instance()->PushImage("MENU_TEXT_BUTTON_QUIT", buttonQuit);
+	Renderer::Instance()->PushImage("MENU_TEXT_BUTTON_EXIT", buttonQuit);
 	Renderer::Instance()->PushImage("MENU_TEXT_BUTTON_SOUND", buttonSound);
 	Renderer::Instance()->Render();
 }

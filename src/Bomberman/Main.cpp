@@ -8,10 +8,12 @@
 #include <time.h>
 
 
-int main() {
+int main(int, char*[]) {
 
 	Menu a;
-	a.draw();
+	while (true) { a.draw(); }
+
+
 
 	return 0;
-}//
+}
