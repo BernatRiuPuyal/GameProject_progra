@@ -7,7 +7,7 @@
 #include "Renderer.h"
 #include "collisions.hpp"
 
-enum state { LOOP, GOTORANKING, PLAY, QUIT }; //COMPLETAR
+enum state { LOOP, GOTORANKING, PLAY, QUIT, TURNMUSIC }; //COMPLETAR
 
 class Scene
 {	

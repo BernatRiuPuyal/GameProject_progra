@@ -38,7 +38,7 @@ Menu::Menu()
 	buttonPlay._state = PLAY;
 	buttonRanking._state = GOTORANKING;
 	buttonQuit._state = QUIT;
-	buttonSound._state = ;
+	buttonSound._state = TURNMUSIC;
 
 	const std::string* ids[buttonNum] = { &MENU_TEXT_BUTTON_PLAY,&MENU_TEXT_BUTTON_RANKING,&MENU_TEXT_BUTTON_EXIT, &MENU_TEXT_BUTTON_SOUND };
 
@@ -102,11 +102,14 @@ void Menu::draw()
 {
 	Renderer::Instance()->Clear();
 	Renderer::Instance()->PushImage(MENU_BG, background);
-	Renderer::Instance()->PushImage("MENU_TEXT_BUTTON_PLAY1", buttonPlay);
-	Renderer::Instance()->PushImage("MENU_TEXT_BUTTON_PLAY2", buttonL2);
-	Renderer::Instance()->PushImage("MENU_TEXT_BUTTON_RANKING", buttonRanking);
-	Renderer::Instance()->PushImage("MENU_TEXT_BUTTON_EXIT", buttonQuit);
-	Renderer::Instance()->PushImage("MENU_TEXT_BUTTON_SOUND", buttonSound);
+	Renderer::Instance()->PushImage("MENU_TEXT_BUTTON_PLAY1", buttonPlay.pos);
+
+	Renderer::Instance()->PushImage("MENU_TEXT_BUTTON_RANKING", buttonRanking.pos);
+	Renderer::Instance()->PushImage("MENU_TEXT_BUTTON_EXIT", buttonQuit.pos);
+	Renderer::Instance()->PushImage("MENU_TEXT_BUTTON_SOUND", buttonSound.pos);
+
+
+
 	Renderer::Instance()->Render();
 }
 
@@ -133,17 +136,12 @@ void Menu::inputHandler()
 
 			for (int i = 0; i < buttonNum; i++) {
 
-				collisions::pointToRect({ event.motion.x, event.motion.y }, *list[i]);
+				if (collisions::pointToRect({ event.motion.x, event.motion.y }, list[i]->pos))
+					estado = list[i]->_state;
 			}
 
 
-
-
-
-
-
-
-
+			
 		}
 
 		
