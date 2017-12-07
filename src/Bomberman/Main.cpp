@@ -1,6 +1,7 @@
 #include <SDL.h>
 #include <iostream>
 #include "Menu.h"
+#include "Game.h"
 #include "Scene.h"
 #include <SDL_image.h>
 #include <SDL_ttf.h>
@@ -10,8 +11,12 @@
 
 int main(int, char*[]) {
 
-	Menu a;
-	while (true) { a.draw(); }
+	Game _game;
+
+	while (true) 
+	{ 
+		_game.loop();
+	}
 
 
 

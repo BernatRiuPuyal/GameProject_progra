@@ -7,84 +7,55 @@
 #include <SDL_ttf.h>
 #include <SDL_mixer.h>
 #include <time.h>
+#include "collisions.hpp"
 
 
 Menu::Menu()
 {
+	this->estado = INMENU;
+	Renderer::Instance()->LoadTexture(MENU_BG, PATH_IMG + "bg.jpg");
+
 	Font font;
 	font.id = SAIYAN_80;
 	font.path = PATH_FONT + "saiyan.ttf";
 	font.size = 80;
 	Renderer::Instance()->LoadFont(font);
 
+	list[0] = &buttonPlay1;
+	list[1] = &buttonPlay2;
+	list[2] = &buttonRanking;
+	list[3] = &buttonQuit;
+	list[4] = &buttonSound;
 
-	list[0] = &buttonPlay;
-	list[1] = &buttonRanking;
-	list[2] = &buttonQuit;
-	list[3] = &buttonSound;
+	buttonPlay1.pos = SDL_Rect{ SCREEN_WIDTH / 2 - 100, 50, 200, 100 };
+	buttonPlay2.pos = SDL_Rect{ SCREEN_WIDTH / 2 - 100, 150, 200, 100 };
+	buttonRanking.pos = SDL_Rect{ SCREEN_WIDTH / 2 - 100, 250, 200, 100 };
+	buttonQuit.pos = SDL_Rect{ SCREEN_WIDTH / 2 - 100, 350, 200, 100 };
+	buttonSound.pos = SDL_Rect{ SCREEN_WIDTH / 2 - 100, 450, 200, 100 };
 
-
-
-	buttonPlay.pos = SDL_Rect{ 350, 100, 200, 200 };
-	buttonRanking.pos = SDL_Rect{ 350, 300, 200, 200 };
-	buttonQuit.pos = SDL_Rect{ 350, 400, 200, 200 };
-	buttonSound.pos = SDL_Rect{ 350, 500, 200, 200 };
-
-	buttonPlay.text = "Level";
+	buttonPlay1.text = "LevelA";
+	buttonPlay2.text = "LevelB";
 	buttonRanking.text = "Ranking";
 	buttonQuit.text = "Quit Game";
 	buttonSound.text = "Mute music";
 
-	buttonPlay._state = PLAY;
-	buttonRanking._state = GOTORANKING;
+	buttonPlay1._state = PLAY1;
+	buttonPlay2._state = PLAY2;
+	buttonRanking._state = RANKING;
 	buttonQuit._state = QUIT;
 	buttonSound._state = TURNMUSIC;
 
-	const std::string* ids[buttonNum] = { &MENU_TEXT_BUTTON_PLAY,&MENU_TEXT_BUTTON_RANKING,&MENU_TEXT_BUTTON_EXIT, &MENU_TEXT_BUTTON_SOUND };
+	const std::string ids[buttonNum] = { MENU_TEXT_BUTTON_PLAY1, MENU_TEXT_BUTTON_PLAY2, MENU_TEXT_BUTTON_RANKING, MENU_TEXT_BUTTON_EXIT, MENU_TEXT_BUTTON_SOUND };
 
 	for (int i = 0; i < buttonNum; i++) {
 
 		Text textIns;
 
-		textIns.id = *ids[i];
+		textIns.id = ids[i];
 		textIns.text = list[i]->text;
 		textIns.color = Color{ 0, 0, 0, 0 };
 		Renderer::Instance()->LoadTextureText(font.id, textIns);
 	}
-
-
-
-	// en teoria aix ja no es necessita
-	/*Text textL1;
-	textL1.id = "MENU_TEXT_BUTTON_PLAY1"; //perque no deixa usar la constant?
-	textL1.text = "Level A";
-	textL1.color = Color{ 0, 0, 0, 0 };
-	Renderer::Instance()->LoadTextureText(font.id, textL1);
-	buttonPlay = SDL_Rect{ 350, 100, 200, 200 };					//PUESTO AL TUNTUN, ARREGLAR aqui y en el resto
-
-	Text textRanking;
-	textRanking.id = "MENU_TEXT_BUTTON_RANKING"; //perque no deixa usar la constant?
-	textRanking.text = "Ranking";
-	textRanking.color = Color{ 0, 0, 0, 0 };
-	Renderer::Instance()->LoadTextureText(font.id, textRanking);
-	buttonRanking = SDL_Rect{ 350, 300, 200, 200 };
-	
-	Text textQuit;
-	textQuit.id = "MENU_TEXT_BUTTON_EXIT"; //perque no deixa usar la constant?
-	textQuit.text = "Quit Game";
-	textQuit.color = Color{ 0, 0, 0, 0 };
-	Renderer::Instance()->LoadTextureText(font.id, textQuit);
-	buttonQuit = SDL_Rect{ 350, 400, 200, 200 };
-
-	Text textSound;
-	textSound.id = "MENU_TEXT_BUTTON_SOUND"; //perque no deixa usar la constant?
-	textSound.text = "Mute music";
-	textSound.color = Color{ 0, 0, 0, 0 };
-	Renderer::Instance()->LoadTextureText(font.id, textSound);
-	buttonSound = SDL_Rect{ 350, 500, 200, 200 };*/
-
-
-	
 
 }
 
@@ -102,50 +73,41 @@ void Menu::draw()
 {
 	Renderer::Instance()->Clear();
 	Renderer::Instance()->PushImage(MENU_BG, background);
-	Renderer::Instance()->PushImage("MENU_TEXT_BUTTON_PLAY1", buttonPlay.pos);
-
-	Renderer::Instance()->PushImage("MENU_TEXT_BUTTON_RANKING", buttonRanking.pos);
-	Renderer::Instance()->PushImage("MENU_TEXT_BUTTON_EXIT", buttonQuit.pos);
-	Renderer::Instance()->PushImage("MENU_TEXT_BUTTON_SOUND", buttonSound.pos);
-
-
-
+	Renderer::Instance()->PushImage(MENU_TEXT_BUTTON_PLAY1, buttonPlay1.pos);
+	Renderer::Instance()->PushImage(MENU_TEXT_BUTTON_PLAY2, buttonPlay2.pos);
+	Renderer::Instance()->PushImage(MENU_TEXT_BUTTON_RANKING, buttonRanking.pos);
+	Renderer::Instance()->PushImage(MENU_TEXT_BUTTON_EXIT, buttonQuit.pos);
+	Renderer::Instance()->PushImage(MENU_TEXT_BUTTON_SOUND, buttonSound.pos);
 	Renderer::Instance()->Render();
-}
-
-void Menu::update()
-{
-	
-	inputHandler();
-
-
-	
-
 }
 
 void Menu::inputHandler()
 {
-	
-	while (SDL_PollEvent(&event)) {
+	while (SDL_PollEvent(&evento)) {
 
-		switch (event.type) {
+		switch (evento.type) {
 
 
 		case SDL_MOUSEBUTTONDOWN:
 
-
 			for (int i = 0; i < buttonNum; i++) {
 
-				if (collisions::pointToRect({ event.motion.x, event.motion.y }, list[i]->pos))
+				if (collisions::pointToRect({ evento.motion.x, evento.motion.y }, list[i]->pos)) {
 					estado = list[i]->_state;
+				}
 			}
 
+			break;
 
-			
+		case SDL_QUIT:
+			estado = state::QUIT;
+			break;
 		}
 
-		
 	}
+}
 
-
+void Menu::update()
+{
+	inputHandler();
 }

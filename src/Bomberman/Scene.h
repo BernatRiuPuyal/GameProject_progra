@@ -5,36 +5,31 @@
 #include <SDL_mixer.h>
 #include <iostream>
 #include "Renderer.h"
-#include "collisions.hpp"
 
-enum state { LOOP, GOTORANKING, PLAY, QUIT, TURNMUSIC }; //COMPLETAR
+enum state { INMENU, RANKING, PLAY1, PLAY2, QUIT, TURNMUSIC }; //JUNTAR CON EL CURRENT ESCENE O COMO SE LLAME
 
 class Scene
 {	
 
 protected:
 //ATR
-	//size a Constants.h
-
 	SDL_Rect background;
-
+	//size a Constants.h
+	SDL_Event evento;
 	//SDL_Mixer music;
-
-	SDL_Event event;
 
 public:
 
-//ATR
 	state estado;
+	//SDL_Event evento;
 
 //FNC
 	Scene();
+	~Scene();
 
 	virtual void setup() = 0;
 	virtual void update() = 0;
 	virtual void draw() = 0;
 	virtual void inputHandler() = 0;
-
-	~Scene();
 };
 

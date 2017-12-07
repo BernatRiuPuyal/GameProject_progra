@@ -9,7 +9,6 @@
 
 Scene::Scene()
 {
-	Renderer::Instance()->LoadTexture(MENU_BG, PATH_IMG + "bg.jpg");
 	background = SDL_Rect{ 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT };
 }
 

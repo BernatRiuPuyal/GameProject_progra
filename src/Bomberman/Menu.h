@@ -20,20 +20,22 @@ class Menu :
 {
 public:
 	//ATR
-	button buttonPlay;
+	button buttonPlay1;
+	button buttonPlay2;
 	button buttonRanking;
 	button buttonQuit;
 	button buttonSound;
 
 private:
-	static const int buttonNum = 4;
+	static const int buttonNum = 5;
 	button* list[buttonNum];
+
 public:
 	//FNC
 	Menu();
 	~Menu();
 
-//private:
+private:
 	void setup() override;
 	void draw() override;
 	void update() override;

@@ -69,7 +69,7 @@
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="..\..\dep\config.props" />
-    <Import Project="..\..\dep\config.props" />
+    <Import Project="..\..\..\Bomberman\dep\config.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
@@ -135,7 +135,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\GameProject_progra\src\Bomberman\Constants.h" />
-    <ClInclude Include="..\..\..\GameProject_progra\src\Bomberman\Types.h" />
     <ClInclude Include="Bomb.h" />
     <ClInclude Include="collisions.hpp" />
     <ClInclude Include="Game.h" />
