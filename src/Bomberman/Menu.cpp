@@ -13,13 +13,6 @@
 Menu::Menu()
 {
 	this->estado = INMENU;
-	Renderer::Instance()->LoadTexture(MENU_BG, PATH_IMG + "bg.jpg");
-
-	Font font;
-	font.id = SAIYAN_80;
-	font.path = PATH_FONT + "saiyan.ttf";
-	font.size = 80;
-	Renderer::Instance()->LoadFont(font);
 
 	list[0] = &buttonPlay1;
 	list[1] = &buttonPlay2;
@@ -27,11 +20,11 @@ Menu::Menu()
 	list[3] = &buttonQuit;
 	list[4] = &buttonSound;
 
-	buttonPlay1.pos = SDL_Rect{ SCREEN_WIDTH / 2 - 100, 50, 200, 100 };
-	buttonPlay2.pos = SDL_Rect{ SCREEN_WIDTH / 2 - 100, 150, 200, 100 };
-	buttonRanking.pos = SDL_Rect{ SCREEN_WIDTH / 2 - 100, 250, 200, 100 };
-	buttonQuit.pos = SDL_Rect{ SCREEN_WIDTH / 2 - 100, 350, 200, 100 };
-	buttonSound.pos = SDL_Rect{ SCREEN_WIDTH / 2 - 100, 450, 200, 100 };
+	buttonPlay1.pos = SDL_Rect{ SCREEN_WIDTH / 2 - 100, 150, 200, 100 };
+	buttonPlay2.pos = SDL_Rect{ SCREEN_WIDTH / 2 - 100, 250, 200, 100 };
+	buttonRanking.pos = SDL_Rect{ SCREEN_WIDTH / 2 - 100, 350, 200, 100 };
+	buttonQuit.pos = SDL_Rect{ SCREEN_WIDTH / 2 - 100, 450, 200, 100 };
+	buttonSound.pos = SDL_Rect{ SCREEN_WIDTH / 2 - 100, 550, 200, 100 };
 
 	buttonPlay1.text = "LevelA";
 	buttonPlay2.text = "LevelB";
@@ -72,7 +65,7 @@ void Menu::setup()
 void Menu::draw()
 {
 	Renderer::Instance()->Clear();
-	Renderer::Instance()->PushImage(MENU_BG, background);
+	Renderer::Instance()->PushImage(BG, background);
 	Renderer::Instance()->PushImage(MENU_TEXT_BUTTON_PLAY1, buttonPlay1.pos);
 	Renderer::Instance()->PushImage(MENU_TEXT_BUTTON_PLAY2, buttonPlay2.pos);
 	Renderer::Instance()->PushImage(MENU_TEXT_BUTTON_RANKING, buttonRanking.pos);

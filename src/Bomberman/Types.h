@@ -24,6 +24,6 @@
 
 	enum class Key {UP, DOWN, LEFT, RIGHT, NONE};
 
-	
+	enum colorPJ { WHITE, RED };
 
-
+	enum powerUp { SKATES, HELMET, NOTHING };

@@ -12,7 +12,9 @@ public:
 
 	bool isMusicOn;
 
-	int name;  //nose perque es pero esta al disseny
+	int name;			//nose perque es pero esta al disseny
+
+	state oldState;		//para el control del bucle
 
 	//static Game* _game;
 

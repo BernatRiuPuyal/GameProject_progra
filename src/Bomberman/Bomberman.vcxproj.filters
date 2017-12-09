@@ -54,6 +54,9 @@
     <ClCompile Include="Renderer.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
+    <ClCompile Include="collisions.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -90,6 +93,9 @@
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\GameProject_progra\src\Bomberman\Constants.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\GameProject_progra\src\Bomberman\Types.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="collisions.hpp">

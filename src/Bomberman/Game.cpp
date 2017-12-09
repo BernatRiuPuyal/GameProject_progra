@@ -22,45 +22,50 @@ void Game::loop()
 		currentSc->update();
 		currentSc->draw();
 
-		switch (currentSc->estado)
-		{
-		case INMENU:
+		if (oldState != currentSc->estado) {
 
-			std::cout << "MENU" << std::endl;
-			
-			break;
+			switch (currentSc->estado)
+			{
+			case INMENU:
 
-		case RANKING:
+				std::cout << "MENU" << std::endl;
 
-			std::cout << "RANKING" << std::endl;
+				break;
 
-			break;
+			case RANKING:
 
-		case PLAY1:
+				std::cout << "RANKING" << std::endl;
 
-			std::cout << "PLAY1" << std::endl;
-			currentSc = new Level();
+				break;
 
-			break;
+			case PLAY1:
 
-		case PLAY2:
+				std::cout << "PLAY1" << std::endl;
+				currentSc = new Level();
 
-			std::cout << "PLAY2" << std::endl;
+				break;
 
-			break;
+			case PLAY2:
 
-		case QUIT:
+				std::cout << "PLAY2" << std::endl;
 
-			std::cout << "QUIT" << std::endl;
+				break;
 
-			break;
+			case QUIT:
 
-		case TURNMUSIC:
+				std::cout << "QUIT" << std::endl;
 
-			std::cout << "TURNMUSIC" << std::endl;
+				break;
 
-			break;
+			case TURNMUSIC:
+
+				std::cout << "TURNMUSIC" << std::endl;
+
+				break;
+			}
 		}
+
+		oldState = currentSc->estado;
 	}
 
 	IMG_Quit();

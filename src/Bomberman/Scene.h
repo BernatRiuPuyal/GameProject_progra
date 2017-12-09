@@ -8,6 +8,13 @@
 
 enum state { INMENU, RANKING, PLAY1, PLAY2, QUIT, TURNMUSIC }; //JUNTAR CON EL CURRENT ESCENE O COMO SE LLAME
 
+struct number {
+
+	SDL_Rect pos;
+	std::string text;
+
+};
+
 class Scene
 {	
 
@@ -17,6 +24,8 @@ protected:
 	//size a Constants.h
 	SDL_Event evento;
 	//SDL_Mixer music;
+	Font font;
+	Font font2;
 
 public:
 
