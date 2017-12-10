@@ -27,3 +27,22 @@
 	enum colorPJ { WHITE, RED };
 
 	enum powerUp { SKATES, HELMET, NOTHING };
+
+	enum state { INMENU, TOMENU, RANKING, PLAY1, PLAY2, QUIT, TURNMUSIC }; //INMENU per al primer menu, TOMENU quan es torna al menu des d'un altre escena
+
+	struct number {
+
+		SDL_Rect pos;
+		std::string text;
+
+	};
+
+	struct button {
+
+		SDL_Rect pos;
+		std::string text;
+
+		state _state;
+	};
+
+	struct position { int x;  int y; };

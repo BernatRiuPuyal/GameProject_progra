@@ -3,17 +3,18 @@
 class Bomb :
 	public GameObject
 {
-	//ATR
+	//ATRIBUTS
 private:
-	float coolDown;
-	position coord;
-	SDL_Rect rect1, rect2, rect3, rect4, rect5, rect6, rect7;
-	SDL_Rect sprite1, sprite2, sprite3, sprite4, sprite5, sprite6, sprite7, sprite8, sprite9;
+	position coord;	//posició a la casella del mapa
+
+	SDL_Rect rect1, rect2, rect3, rect4, rect5, rect6, rect7;									//Rects per l'explosió
+	SDL_Rect sprite1, sprite2, sprite3, sprite4, sprite5, sprite6, sprite7, sprite8, sprite9;	//sprites per l'explosió
 
 public:
-	
-	colorPJ idPJ;	//PJ que la crea 
-	//MET
+	colorPJ idPJ;	//color del PJ que la crea per identificarlo
+
+	//METODES
+public:
 	Bomb(colorPJ id, int x, int y);
 	~Bomb();
 	void setup() override;

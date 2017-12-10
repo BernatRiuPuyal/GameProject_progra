@@ -7,8 +7,6 @@
 #include "Renderer.h"
 #include <time.h>
 
-struct position { int x;  int y; };
-
 class GameObject
 {
 	//ATR
@@ -16,28 +14,27 @@ class GameObject
 protected:
 	
 	
-	SDL_Rect rect;			//parcela dentro de la hoja de sprites
-	//size a Constants.h
+	SDL_Rect rect;			//porció dins de la fulla d'sprites
 
-	clock_t lastTime;
+	//Control del temps
+	clock_t lastTime;		
 	float timeDown;
 	float deltaTime;
 
-	
-
-	static const int maxNumSprites = 9;
+	static const int maxNumSprites = 9;	
 
 public:
-	bool blocksPJ;			//el jugador col.lisiona o no
-	bool impacted;
-	position pos;
-	SDL_Rect sprite;
-	SDL_Rect list[maxNumSprites];
-	bool picked; //si un jugador l'ha agafat
-	powerUp type;
 	bool destructible;
+	bool blocksPJ;			//El jugador el pot o no atravesar
+	bool picked;			//si un jugador l'ha agafat
+	bool impacted;			//L'objecta ha rebut l'impacte de la bomba
+	powerUp type;			//Tipus del objecte
+	SDL_Rect sprite;		//Script a imprimir i lloc on es fara
+	position pos;			//posició del script
+	SDL_Rect list[maxNumSprites];
 
-	//MTD
+	//METODES
+public:
 	GameObject();
 	~GameObject();
 

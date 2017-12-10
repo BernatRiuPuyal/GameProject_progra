@@ -12,6 +12,7 @@ Game::Game()
 
 Game::~Game()
 {
+
 }
 
 void Game::loop()
@@ -22,11 +23,19 @@ void Game::loop()
 		currentSc->update();
 		currentSc->draw();
 
-		if (oldState != currentSc->estado) {
+		if (oldState != currentSc->estado) {		//Control escenas
 
 			switch (currentSc->estado)
 			{
 			case INMENU:
+
+				std::cout << "MENU" << std::endl;
+
+				break;
+
+			case TOMENU:
+
+				currentSc = new Menu();
 
 				std::cout << "MENU" << std::endl;
 
@@ -40,8 +49,9 @@ void Game::loop()
 
 			case PLAY1:
 
-				std::cout << "PLAY1" << std::endl;
 				currentSc = new Level();
+
+				std::cout << "PLAY1" << std::endl;
 
 				break;
 
@@ -68,7 +78,7 @@ void Game::loop()
 		oldState = currentSc->estado;
 	}
 
-	IMG_Quit();
+	IMG_Quit();			//termina bucle i es tanca SDL
 	TTF_Quit();
 	Mix_Quit();
 	SDL_Quit();

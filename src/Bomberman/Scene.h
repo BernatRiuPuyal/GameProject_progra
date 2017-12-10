@@ -5,34 +5,26 @@
 #include <SDL_mixer.h>
 #include <iostream>
 #include "Renderer.h"
-
-enum state { INMENU, RANKING, PLAY1, PLAY2, QUIT, TURNMUSIC }; //JUNTAR CON EL CURRENT ESCENE O COMO SE LLAME
-
-struct number {
-
-	SDL_Rect pos;
-	std::string text;
-
-};
+#include "Types.h"
 
 class Scene
 {	
-
+	//ATRIBUTS
 protected:
-//ATR
+
 	SDL_Rect background;
-	//size a Constants.h
-	SDL_Event evento;
-	//SDL_Mixer music;
-	Font font;
-	Font font2;
+
+	SDL_Event evento;	//pels inputs
+
+	Font font;			//font sense números
+	Font font2;			//amb
 
 public:
 
-	state estado;
-	//SDL_Event evento;
+	state estado;		//indica l'escena
 
-//FNC
+	//METODES
+public:
 	Scene();
 	~Scene();
 

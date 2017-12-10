@@ -7,7 +7,6 @@
 #include "Types.h"
 #include "Constants.h"
 
-
 class Renderer {
 
 private:

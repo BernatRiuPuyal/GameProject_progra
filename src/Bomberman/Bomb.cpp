@@ -6,11 +6,9 @@
 
 Bomb::Bomb(colorPJ id, int x, int y)
 {
-	pos = { x, y };
-	coord = pos;
-
-	pos.x = pos.x * SCRIPT_SIZE;
-	pos.y = pos.y *  SCRIPT_SIZE + HUD_HEIGHT;
+	coord = { x, y };											//pos a la casella
+	pos = { x * SCRIPT_SIZE, y *  SCRIPT_SIZE + HUD_HEIGHT };  //pos en pixels.								
+				
 	idPJ = id;
 	
 	impacted = false;
@@ -63,18 +61,19 @@ Bomb::~Bomb()
 
 void Bomb::draw()
 {
-	if (timeDown > 3.0)
+	if (timeDown > 3.0)//despres explosió, imprimeix el foc/explosio
 	{
-		Renderer::Instance()->PushSprite(EXPLOSION, rect1, sprite1);	//explosió
-		Renderer::Instance()->PushSprite(EXPLOSION, rect2, sprite2);
-		Renderer::Instance()->PushSprite(EXPLOSION, rect2, sprite4);
-		Renderer::Instance()->PushSprite(EXPLOSION, rect3, sprite3);
-		Renderer::Instance()->PushSprite(EXPLOSION, rect3, sprite5);
-		Renderer::Instance()->PushSprite(EXPLOSION, rect4, sprite7);
+		Renderer::Instance()->PushSprite(EXPLOSION, rect1, sprite1);	//explosió					//		RECTS			//		SPRITE
+		Renderer::Instance()->PushSprite(EXPLOSION, rect2, sprite2);								//		  4				//		  7	
+		Renderer::Instance()->PushSprite(EXPLOSION, rect2, sprite4);								//		  3				//		  3
+		Renderer::Instance()->PushSprite(EXPLOSION, rect3, sprite3);								//  6  2  1  2  7		//  6  2  1  4  8
+		Renderer::Instance()->PushSprite(EXPLOSION, rect3, sprite5);								//        3				//        5
+		Renderer::Instance()->PushSprite(EXPLOSION, rect4, sprite7);								//        5				//        9
 		Renderer::Instance()->PushSprite(EXPLOSION, rect5, sprite9);
 		Renderer::Instance()->PushSprite(EXPLOSION, rect6, sprite6);
 		Renderer::Instance()->PushSprite(EXPLOSION, rect7, sprite8);
 	}
+	//abans imprimeix la bomba
 	else Renderer::Instance()->PushSprite(ITEM, rect, sprite);			//bomba
 }
 
@@ -85,11 +84,13 @@ void Bomb::setup()
 
 void Bomb::update(GameObject *map[SCREEN_WIDTH / SCRIPT_SIZE][(SCREEN_HEIGHT - HUD_HEIGHT) / SCRIPT_SIZE])
 {
+	//Control del temps
 	deltaTime = (clock() - lastTime);
 	lastTime = clock();
 	deltaTime /= CLOCKS_PER_SEC;
 	timeDown += deltaTime;
 
+	//impacted sera true quan termini l'explosió a la funció del player myBomb()
 	if (impacted) { map[coord.x][coord.y] = nullptr; this->~Bomb(); }
 
 }

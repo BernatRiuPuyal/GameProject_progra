@@ -13,12 +13,11 @@ int main(int, char*[]) {
 
 	Game _game;
 
-	while (true) 
+	while (_game.currentSc->estado != QUIT)
 	{ 
 		_game.loop();
 	}
 
-
-
 	return 0;
+
 }

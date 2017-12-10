@@ -1,18 +1,16 @@
 #pragma once
 #include "GameObject.h"
-#include "Player.h"
+
 class Wall :
 	public GameObject
 {
+	//ATRIBUTS
 private:
-	int randNum; //para la probabilidad de spawn del Power Up
+	int randNum;	//para la probabilidad de spawn del Power Up
+	SDL_Rect rect;	//parcela dentro de la hoja de sprites
+
+	//METODES
 public:
-
-	//ATR
-	
-	SDL_Rect rect;					//parcela dentro de la hoja de sprites
-
-	//MTD
 	Wall(bool dest, int x, int y);
 	~Wall();
 	void setup() override;

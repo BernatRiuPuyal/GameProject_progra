@@ -7,31 +7,22 @@
 #include <SDL_mixer.h>
 #include <time.h>
 
-struct button {
-
-	SDL_Rect pos;
-	std::string text;
-
-	state _state;
-};
-
 class Menu :
 	public Scene
 {
-public:
-	//ATR
-	button buttonPlay1;
+	//ATRIBUTS
+private:
+	button buttonPlay1;		//botons presents al menu
 	button buttonPlay2;
 	button buttonRanking;
 	button buttonQuit;
 	button buttonSound;
 
-private:
-	static const int buttonNum = 5;
+	static const int buttonNum = 5;		//array que els allotjara
 	button* list[buttonNum];
 
+	//METODES
 public:
-	//FNC
 	Menu();
 	~Menu();
 

@@ -7,16 +7,21 @@
 #include "Renderer.h"
 #include "Constants.h"
 
+
+
 Scene::Scene()
-{
+{	
+	//Background
 	background = SDL_Rect{ 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT };
 	Renderer::Instance()->LoadTexture(BG, PATH_IMG + "bgGame.jpg");
 
+	//Font 1
 	font.id = SAIYAN_80;
 	font.path = PATH_FONT + "saiyan.ttf";
 	font.size = 80;
 	Renderer::Instance()->LoadFont(font);
 
+	//Font 2
 	font2.id = GO_40;
 	font2.path = PATH_FONT + "game_over.ttf";
 	font2.size = 80;

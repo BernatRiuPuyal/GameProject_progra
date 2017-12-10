@@ -9,6 +9,14 @@
 #define SCRIPT_SIZE 48
 #define HUD_HEIGHT 80
 
+#define INITIAL_VELOCITY 5.0
+
+#define POWERUP_TIME 10
+#define PU_MULTIPLIER 1.8 //per quant es multiplica la velocitat amb el power up
+
+#define POINTS_WALL 15
+#define POINTS_PJ 100
+
 const std::string BG = "BG";
 const std::string EXPLOSION = "EXPLOSION";
 const std::string PLAYER_W_SPRITE = "PLAYER_B_SPRITE";
