@@ -16,6 +16,9 @@ Level::Level(LevelConfig _set)
 
 	this->estado = PLAY1;
 
+	int auxLives;
+
+
 	//Neteja memoria
 	for (int i = 0; i < 15; i++)
 		for (int j = 0; j < 13; j++)
@@ -59,7 +62,7 @@ Level::Level(LevelConfig _set)
 		#pragma endregion anticMuntatge
 
 			timeDown = 80;		//Segons que durara com a maxim la partida
-
+			auxLives = 3;
 		break;
 	case LEVEL1:
 	case LEVEL2:
@@ -91,7 +94,12 @@ Level::Level(LevelConfig _set)
 			pLevel = pLevel->next_sibling("Level");
 		}
 
+		
+
 		timeDown = atoi(pLevel->first_attribute("time")->value());		//Segons que durara com a maxim la partida
+
+		auxLives = atoi(pLevel->first_attribute("lives")->value());	//vides dels jugadors
+
 
 		for (rapidxml::xml_node<> *pWall = pLevel->first_node("Destructible")->first_node("Wall"); pWall; pWall = pWall->next_sibling("Wall")) {
 
@@ -170,6 +178,11 @@ Level::Level(LevelConfig _set)
 
 
 	pj[1] = new Player(RED, i, j);
+
+
+	for (int i = 0; i < numPlayers; i++) {
+		pj[i]->lives = auxLives;
+	}
 
 	//if PLAY 2//
 		//TODO
