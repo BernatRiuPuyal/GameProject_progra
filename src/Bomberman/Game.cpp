@@ -16,7 +16,11 @@ Game::~Game()
 }
 
 void Game::loop()
+
 {
+	
+
+
 	while (currentSc->estado != QUIT)
 	{
 		currentSc->inputHandler();
@@ -49,14 +53,15 @@ void Game::loop()
 
 			case PLAY1:
 
-				currentSc = new Level();
+				currentSc = new Level(DEFAULT);
 
-				std::cout << "PLAY1" << std::endl;
+				std::cout << "PLAY1" << std::endl; //debug
 
 				break;
 
 			case PLAY2:
 
+				currentSc = new Level(LEVEL2);
 				std::cout << "PLAY2" << std::endl;
 
 				break;

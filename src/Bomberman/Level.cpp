@@ -11,9 +11,8 @@
 
 #include "PowerUP.h"
 
-Level::Level()
+Level::Level(LevelConfig _set)
 {
-	//if PLAY 1//
 
 	this->estado = PLAY1;
 
@@ -22,39 +21,155 @@ Level::Level()
 		for (int j = 0; j < 13; j++)
 			map[i][j] = nullptr;
 
-	//Omple tot de destruibles
-	for (int i = 1; i < 14; i++)
-		for (int j = 1; j < 12; j++)
-			map[i][j] = new Wall(true, i, j);
+	switch (_set)
+	{
+	case DEFAULT:
 
-	//Coloca no destruibles
-	for (int i = 2; i <= 12; i = i + 2)
-		for (int j = 2; j <= 10; j = j + 2)
+		this->estado = PLAY1;
+
+		#pragma region anticMuntatge
+			
+		
+			//Omple tot de destruibles
+			for (int i = 1; i < 14; i++)
+				for (int j = 1; j < 12; j++)
+					map[i][j] = new Wall(true, i, j);
+		
+			//Coloca no destruibles
+			for (int i = 2; i <= 12; i = i + 2)
+				for (int j = 2; j <= 10; j = j + 2)
+					map[i][j] = new Wall(false, i, j);
+		
+
+		
+			//Neteja els llocs que han de ser buits
+			map[1][1] = nullptr;	//Cantonada superior esquerra
+			map[1][2] = nullptr;
+			map[1][3] = nullptr;
+			map[2][1] = nullptr;
+			map[3][1] = nullptr;
+		
+			map[13][11] = nullptr;	//Cantonada inferior dreta
+			map[13][10] = nullptr;
+			map[13][9]  = nullptr;
+			map[12][11] = nullptr;
+			map[11][11] = nullptr;
+		
+		
+		#pragma endregion anticMuntatge
+
+			timeDown = 80;		//Segons que durara com a maxim la partida
+
+		break;
+	case LEVEL1:
+	case LEVEL2:
+
+	{
+
+
+
+		rapidxml::xml_document<> doc;
+
+		std::ifstream file("../../res/files/config.xml");
+
+		std::stringstream buffer;
+
+		buffer << file.rdbuf();
+
+		file.close();
+
+		std::string content(buffer.str());
+
+		doc.parse<0>(&content[0]);
+
+		rapidxml::xml_node<> *pRoot = doc.first_node();
+
+		rapidxml::xml_node<> *pLevel = pRoot->first_node("Level");
+
+		while (atoi(pLevel->first_attribute("id")->value()) != static_cast<int>(_set) ) { //search Level
+
+			pLevel = pLevel->next_sibling("Level");
+		}
+
+		timeDown = atoi(pLevel->first_attribute("time")->value());		//Segons que durara com a maxim la partida
+
+		for (rapidxml::xml_node<> *pWall = pLevel->first_node("Destructible")->first_node("Wall"); pWall; pWall = pWall->next_sibling("Wall")) {
+
+			int i = atoi(pWall->first_attribute("i")->value());
+			int j = atoi(pWall->first_attribute("j")->value());
+
+			map[i][j] = new Wall(true, i, j);
+		}
+
+
+		for (rapidxml::xml_node<> *pWall = pLevel->first_node("Fixed")->first_node("Wall"); pWall; pWall = pWall->next_sibling("Wall")) {
+
+			int i = atoi(pWall->first_attribute("i")->value());
+			int j = atoi(pWall->first_attribute("j")->value());
+
 			map[i][j] = new Wall(false, i, j);
+		}
+	}
+
+
+
+
+
+	
+		break;
+	}
+
+	
+
 
 	//Omple exterior de no destruibles (limits del mapa)
-	for (int i = 0; i < 15; i++) map[i][0]  = new Wall(false, i, 0);	//y = 0
+	for (int i = 0; i < 15; i++) map[i][0] = new Wall(false, i, 0);	//y = 0
 	for (int i = 0; i < 15; i++) map[i][12] = new Wall(false, i, 12);	//y = 12
-	for (int i = 0; i < 13; i++) map[0][i]  = new Wall(false, 0, i);	//x = 0
+	for (int i = 0; i < 13; i++) map[0][i] = new Wall(false, 0, i);	//x = 0
 	for (int i = 0; i < 13; i++) map[14][i] = new Wall(false, 14, i);	//x = 14
 
-	//Neteja els llocs que han de ser buits
-	map[1][1] = nullptr;	//Cantonada superior esquerra
-	map[1][2] = nullptr;
-	map[1][3] = nullptr;
-	map[2][1] = nullptr;
-	map[3][1] = nullptr;
+	
+	//Col.loca PJ | algoritme que els coloca al lloc buit més aprop de la seva cantonada
+	int i = 1, j = 1;
+	int lastLine = 1;
+	while (map[i][j] != nullptr) {
 
-	map[13][11] = nullptr;	//Cantonada inferior dreta
-	map[13][10] = nullptr;
-	map[13][9]  = nullptr;
-	map[12][11] = nullptr;
-	map[11][11] = nullptr;
+		
+		if (i == 1) {
+			lastLine++;
+			i = lastLine;
+			j = 1;
+		}
+		else {
+			j++;
+			i--;
+		}
 
-	//Col.loca PJ
+	}
 
-	pj[0] = new Player(WHITE, 1, 1);
-	pj[1] = new Player(RED, 13, 11);
+	
+	pj[0] = new Player(WHITE, i, j);
+
+	i = 13;
+	j = 11;
+	lastLine = 13;
+
+	while (map[i][j] != nullptr) {
+
+		if (i == 13) {
+			lastLine--;
+			i = lastLine;
+			j = 11;
+		}
+		else {
+			j--;
+			i++;
+		}
+	}
+	
+
+
+	pj[1] = new Player(RED, i, j);
 
 	//if PLAY 2//
 		//TODO
@@ -88,7 +203,7 @@ Level::Level()
 
 	//Variables per controlar el temps
 	lastTime = clock();
-	timeDown = 80;		//Segons que durara com a maxim la partida
+	
 }
 
 

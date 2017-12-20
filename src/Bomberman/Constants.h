@@ -41,3 +41,5 @@ const std::string PATH_AU = "../../res/au/";
 
 const std::string SAIYAN_80 = "SAIYAN_80";
 const std::string GO_40 = "GO_40";
+
+enum LevelConfig { DEFAULT, LEVEL1, LEVEL2 };

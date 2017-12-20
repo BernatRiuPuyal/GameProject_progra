@@ -5,6 +5,7 @@
 
 class Game
 {
+	
 	//ATRIBUTS
 public:
 
