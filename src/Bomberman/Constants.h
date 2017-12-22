@@ -17,6 +17,8 @@
 #define POINTS_WALL 15
 #define POINTS_PJ 100
 
+#define PLAYERS_ON_RANKING 10
+
 const std::string BG = "BG";
 const std::string EXPLOSION = "EXPLOSION";
 const std::string PLAYER_W_SPRITE = "PLAYER_B_SPRITE";
@@ -28,6 +30,7 @@ const std::string MENU_TEXT_BUTTON_PLAY2 = "MENU_TEXT_BUTTON_PLAY2";
 const std::string MENU_TEXT_BUTTON_EXIT = "MENU_TEXT_BUTTON_EXIT";
 const std::string MENU_TEXT_BUTTON_RANKING = "MENU_TEXT_BUTTON_RANKING";
 const std::string MENU_TEXT_BUTTON_SOUND = "MENU_TEXT_BUTTON_SOUND";
+const std::string RANKING_TEXT_BACK = "RANKING_TEXT_BACK";
 
 const std::string LIVES_W = "LIVES_W";
 const std::string LIVES_R = "LIVES_R";
@@ -43,3 +46,5 @@ const std::string SAIYAN_80 = "SAIYAN_80";
 const std::string GO_40 = "GO_40";
 
 enum LevelConfig { DEFAULT, LEVEL1, LEVEL2 };
+
+

@@ -7,7 +7,6 @@
 #include <SDL_ttf.h>
 #include <SDL_mixer.h>
 #include <time.h>
-#include "collisions.hpp"
 
 
 Menu::Menu()
@@ -108,5 +107,5 @@ void Menu::inputHandler()
 
 void Menu::update()
 {
-	inputHandler();
+	//inputHandler();
 }

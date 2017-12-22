@@ -2,6 +2,7 @@
 #include "Scene.h"
 #include "Menu.h"
 #include "Level.h"
+#include "Ranking.h"
 
 
 
@@ -47,6 +48,7 @@ void Game::loop()
 
 			case RANKING:
 
+				currentSc = new Ranking(oldState!=INMENU);
 				std::cout << "RANKING" << std::endl;
 
 				break;
