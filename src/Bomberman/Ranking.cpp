@@ -13,7 +13,7 @@ Ranking::Ranking(bool comeFromLevel)
 	std::ifstream fentrada("../../res/files/ranking.bin", std::ios::in | std::ios::binary);
 
 
-	for (int i = 0; i < PLAYERS_ON_RANKING; i++) {
+	for (int i = 0; i < PLAYERS_ON_RANKING; i++) { //encara he provat res del binari
 
 		size_t length =0;
 		std::string name;
@@ -152,7 +152,7 @@ void Ranking::draw()
 
 	
 
-void Ranking::update()
+void Ranking::update() 
 {
 }
 
