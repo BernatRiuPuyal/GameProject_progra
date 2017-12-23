@@ -355,15 +355,28 @@ void Level::update()
 
 	if (timeDown < 0 || pj[0]->lives <= 0 || pj[1]->lives <= 0) {
 
-		if (pj[0]->score >= pj[1]->score)
-		{
-			maxScore = pj[0]->score;
-			playerID = 0;
+		//Determina qui guanya
+		if (timeDown < 0) {
+			if (pj[0]->score >= pj[1]->score)
+			{
+				maxScore = pj[0]->score;
+				playerID = 0;
+			}
+			else
+			{
+				maxScore = pj[1]->score;
+				playerID = 1;
+			}
 		}
-		else
+		else if (pj[0]->lives <= 0)
 		{
 			maxScore = pj[1]->score;
 			playerID = 1;
+		}
+		else
+		{
+			maxScore = pj[0]->score;
+			playerID = 0;
 		}
 
 		estado = RANKING;
