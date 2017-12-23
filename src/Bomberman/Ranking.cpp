@@ -10,7 +10,7 @@ Ranking::Ranking(bool comeFromLevel, int maxScore, int pjID)
 
 	// read Ranking
 
-	rank.resize(10);
+	//rank.resize(10);
 	this->estado = RANKING;
 
 	std::ifstream fentrada("../../res/files/ranking.bin", std::ios::in | std::ios::binary);
@@ -60,7 +60,7 @@ Ranking::Ranking(bool comeFromLevel, int maxScore, int pjID)
 		rank[i] = { "Jugador" + std::to_string(i + 1), 3000 - 246 * i };
 	//////////////////////////////////////////////////////////
 
-	//Imprimeix vector
+	//Carrega textures amb les dades del vector
 	for(int i = 0; i < 10; i++)
 		Renderer::Instance()->LoadTextureText(font3.id, { "PJ" + std::to_string(i+1), rank[i].name + " - " + std::to_string(rank[i].score), Color{ 0,0,0,0 } });
 
@@ -125,7 +125,7 @@ void Ranking::draw()
 	case Ranking::SHOWRANK:
 
 		for (int i = 0; i < 10; i++)
-			Renderer::Instance()->PushImage("PJ" + std::to_string(i+1), { SCREEN_WIDTH / 2 - 250, HUD_HEIGHT + SCRIPT_SIZE + 40 * i, 300, 40 });
+			Renderer::Instance()->PushImage("PJ" + std::to_string(i+1), { SCREEN_WIDTH / 2 - 150, HUD_HEIGHT + SCRIPT_SIZE + 40 * i, 300, 40 });
 		
 		Renderer::Instance()->PushImage(RANKING_TEXT_BACK, buttonBack.pos);
 
