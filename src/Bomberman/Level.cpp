@@ -65,12 +65,61 @@ Level::Level(LevelConfig _set)
 			auxLives = 3;
 		break;
 	case LEVEL1:
+
+	{
+		rapidxml::xml_document<> doc;
+
+		std::ifstream file("../../res/files/config.xml");
+
+		std::stringstream buffer;
+
+		buffer << file.rdbuf();
+
+		file.close();
+
+		std::string content(buffer.str());
+
+		doc.parse<0>(&content[0]);
+
+		rapidxml::xml_node<> *pRoot = doc.first_node();
+
+		rapidxml::xml_node<> *pLevel = pRoot->first_node("Level");
+
+		while (atoi(pLevel->first_attribute("id")->value()) != static_cast<int>(_set)) { //search Level
+
+			pLevel = pLevel->next_sibling("Level");
+		}
+
+
+
+		timeDown = atoi(pLevel->first_attribute("time")->value());		//Segons que durara com a maxim la partida
+
+		auxLives = atoi(pLevel->first_attribute("lives")->value());	//vides dels jugadors
+
+
+		for (rapidxml::xml_node<> *pWall = pLevel->first_node("Destructible")->first_node("Wall"); pWall; pWall = pWall->next_sibling("Wall")) {
+
+			int i = atoi(pWall->first_attribute("i")->value());
+			int j = atoi(pWall->first_attribute("j")->value());
+
+			map[j + 1][i + 1] = new Wall(true, j + 1, i + 1);
+		}
+
+
+		for (rapidxml::xml_node<> *pWall = pLevel->first_node("Fixed")->first_node("Wall"); pWall; pWall = pWall->next_sibling("Wall")) {
+
+			int i = atoi(pWall->first_attribute("i")->value());
+			int j = atoi(pWall->first_attribute("j")->value());
+
+			map[j + 1][i + 1] = new Wall(false, j + 1, i + 1);
+		}
+	}
+
+		break;
+
 	case LEVEL2:
 
 	{
-
-
-
 		rapidxml::xml_document<> doc;
 
 		std::ifstream file("../../res/files/config.xml");
@@ -106,7 +155,7 @@ Level::Level(LevelConfig _set)
 			int i = atoi(pWall->first_attribute("i")->value());
 			int j = atoi(pWall->first_attribute("j")->value());
 
-			map[i][j] = new Wall(true, i, j);
+			map[j+1][i+1] = new Wall(true, j+1, i+1);
 		}
 
 
@@ -115,14 +164,9 @@ Level::Level(LevelConfig _set)
 			int i = atoi(pWall->first_attribute("i")->value());
 			int j = atoi(pWall->first_attribute("j")->value());
 
-			map[i][j] = new Wall(false, i, j);
+			map[j+1][i+1] = new Wall(false, j+1, i+1);
 		}
 	}
-
-
-
-
-
 	
 		break;
 	}
@@ -184,8 +228,6 @@ Level::Level(LevelConfig _set)
 		pj[i]->lives = auxLives;
 	}
 
-	//if PLAY 2//
-		//TODO
 
 	//HUD//
 				//Icones jugadors

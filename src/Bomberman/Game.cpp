@@ -55,7 +55,7 @@ void Game::loop()
 
 			case PLAY1:
 
-				currentSc = new Level(DEFAULT);
+				currentSc = new Level(LEVEL1);
 
 				std::cout << "PLAY1" << std::endl; //debug
 
