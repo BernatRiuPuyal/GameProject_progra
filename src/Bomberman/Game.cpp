@@ -25,8 +25,8 @@ void Game::loop()
 	while (currentSc->estado != QUIT)
 	{
 		currentSc->inputHandler();
-		currentSc->update();
 		currentSc->draw();
+		currentSc->update();
 
 		if (oldState != currentSc->estado) {		//Control escenas
 
@@ -48,7 +48,7 @@ void Game::loop()
 
 			case RANKING:
 
-				currentSc = new Ranking(oldState!=INMENU);
+				currentSc = new Ranking(oldState!=INMENU, currentSc->maxScore, currentSc->playerID);
 				std::cout << "RANKING" << std::endl;
 
 				break;

@@ -25,19 +25,17 @@ private:
 	
 	button buttonBack;
 
-	phase enterName; //
+	phase enterName; 
 
 	std::string introName; //name introducing 
-
+	bool fromLevel;		//determina si s'ha vingut des de joc o no
 
 	//metodos
 
 public:
 
 
-
-
-	Ranking(bool comeFromLevel); //comeFromLevel determina si s'ha vingut des de joc o no
+	Ranking(bool comeFromLevel, int maxScore, int pjID); //comeFromLevel determina si s'ha vingut des de joc o no
 	~Ranking();
 
 

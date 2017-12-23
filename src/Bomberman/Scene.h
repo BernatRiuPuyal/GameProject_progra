@@ -26,6 +26,9 @@ public:
 
 	state estado;		//indica l'escena
 
+	int maxScore; //puntuació pel ranking
+	int playerID;   //player pel ranking
+
 	//METODES
 public:
 	Scene();

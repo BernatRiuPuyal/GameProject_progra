@@ -45,7 +45,6 @@ private:
 	clock_t lastTime;
 	float timeDown;
 	float deltaTime;
-	
 
 	//METODES
 public:

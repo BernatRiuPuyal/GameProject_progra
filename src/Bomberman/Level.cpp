@@ -310,7 +310,22 @@ void Level::update()
 	Renderer::Instance()->LoadTextureText(font2.id, textTime);
 
 	//FIN DEL JUEGO//
-	if (timeDown < 0 || pj[0]->lives <= 0 || pj[1]->lives <= 0) estado = TOMENU;
+
+	if (timeDown < 0 || pj[0]->lives <= 0 || pj[1]->lives <= 0) {
+
+		if (pj[0]->score >= pj[1]->score)
+		{
+			maxScore = pj[0]->score;
+			playerID = 0;
+		}
+		else
+		{
+			maxScore = pj[1]->score;
+			playerID = 1;
+		}
+
+		estado = RANKING;
+	}
 }
 
 void Level::inputHandler()
