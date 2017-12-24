@@ -16,9 +16,11 @@ Ranking::Ranking(bool comeFromLevel, int _maxScore, int pjID)
 
 	std::ifstream fentrada("../../res/files/ranking.bin", std::ios::in | std::ios::binary);
 
-	if (fentrada) { //comprova si existeix
+	bool correctFile = true;
 
-
+	correctFile = (fentrada) ? true : false;
+	if (correctFile) { //comprova si existeix
+		
 
 
 		for (int i = 0; i < PLAYERS_ON_RANKING; i++) { //encara he provat res del binari
@@ -29,6 +31,10 @@ Ranking::Ranking(bool comeFromLevel, int _maxScore, int pjID)
 
 
 			fentrada.read(reinterpret_cast<char*>(&length), sizeof(size_t)); // llegeix la longitud del array
+			if (length > 100 || length < 0) {
+				correctFile = false;
+				break;
+			}
 
 			char *temp = new char[length + 1]; //crea auxiliar que guardarà el nom
 
@@ -43,13 +49,14 @@ Ranking::Ranking(bool comeFromLevel, int _maxScore, int pjID)
 			fentrada.read(reinterpret_cast<char*>(&score), sizeof(score));
 
 			rank.push_back({ name,score });
-
+			
+			
 		}
 
 		fentrada.close();
 
 	}
-	else { // sino existeix omple el vector amb "Empty Slots" - es guardara en un nou ranking.bin
+	if (!correctFile) { // sino existeix omple el vector amb "Empty Slots" - es guardara en un nou ranking.bin
 		for (int i = 0; i < 10; i++)
 		rank.push_back( { "Empty Slot", 0 });
 		
@@ -151,6 +158,9 @@ void Ranking::update()
 	
 		std::string introName;
 		std::cin >> introName;
+
+		if (introName.size() > 100) introName.resize(100);
+
 
 		rank.push_back({ introName, maxScore });
 		//sort de rank
