@@ -33,6 +33,8 @@ Scene::Scene()
 	font3.path = PATH_FONT + "game_over.ttf";
 	font3.size = 40;
 	Renderer::Instance()->LoadFont(font3);
+
+
 }
 
 

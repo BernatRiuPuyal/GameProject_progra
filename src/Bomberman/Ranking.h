@@ -7,7 +7,7 @@
 class Ranking :
 	public Scene
 {
-	enum phase{ENTERNAME1,ENTERNAME2,SHOWRANK};
+	enum phase{ENTERNAME,SHOWRANK};
 
 	struct rankMember {						// per guardar el ranking fem servir un vector
 		std::string name;					// de rankMember. 
@@ -25,9 +25,9 @@ private:
 	
 	button buttonBack;
 
-	phase enterName; 
+	phase _phase; 
 
-	std::string introName; //name introducing 
+	
 	bool fromLevel;		//determina si s'ha vingut des de joc o no
 
 	//metodos
@@ -45,6 +45,8 @@ private:
 	void draw() override;
 	void update() override;
 	void inputHandler() override;
+
+	void loadRank();
 
 };
 

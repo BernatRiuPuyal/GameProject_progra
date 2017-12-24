@@ -4,9 +4,10 @@
 #include <string>
 
 
-Ranking::Ranking(bool comeFromLevel, int maxScore, int pjID)
+Ranking::Ranking(bool comeFromLevel, int _maxScore, int pjID)
 {
 	fromLevel = comeFromLevel;
+	maxScore = _maxScore;
 
 	// read Ranking
 
@@ -17,16 +18,16 @@ Ranking::Ranking(bool comeFromLevel, int maxScore, int pjID)
 
 	for (int i = 0; i < PLAYERS_ON_RANKING; i++) { //encara he provat res del binari
 
-		size_t length =0;
+		size_t length;
 		std::string name;
 		int score;
 
 
-		fentrada.read(reinterpret_cast<char*>(length), sizeof(size_t)); // llegeix la longitud del array
+		fentrada.read(reinterpret_cast<char*>(&length), sizeof(size_t)); // llegeix la longitud del array
 
 		char *temp = new char[length + 1]; //crea auxiliar que guardarà el nom
 
-		fentrada.read(reinterpret_cast<char*>(&length), length);
+		fentrada.read(temp, length);
 
 		temp[length] = '\0';
 
@@ -56,16 +57,17 @@ Ranking::Ranking(bool comeFromLevel, int maxScore, int pjID)
 	
 	
 	//////////OMPLE VECTOR A MÀ PER PROVAR!!!!!!!!!!!!!!!!!! ---- Es podria usar com a ranking per defecte del joc???
-	//for (int i = 0; i < 10; i++)
-	//	rank[i] = { "Jugador" + std::to_string(i + 1), 3000 - 246 * i };
+	/*for (int i = 0; i < 10; i++)
+	rank[i] = { "Jugador" + std::to_string(i + 1), 15 - i };
+	std::sort(rank.begin(), rank.end());
+	std::reverse(rank.begin(), rank.end());*/
 	//////////////////////////////////////////////////////////
 
 	//Carrega textures amb les dades del vector
-	for(int i = 0; i < 10; i++)
-		Renderer::Instance()->LoadTextureText(font3.id, { "PJ" + std::to_string(i+1), rank[i].name + " - " + std::to_string(rank[i].score), Color{ 0,0,0,0 } });
+	
+	loadRank();
 
-
-	enterName = (comeFromLevel) ? ENTERNAME1 : SHOWRANK; // determina que es mostrarà per començar
+	_phase = (comeFromLevel) ? ENTERNAME : SHOWRANK; // determina que es mostrarà per començar
 
 }
 
@@ -110,18 +112,14 @@ void Ranking::draw()
 	Renderer::Instance()->Clear();
 	Renderer::Instance()->PushImage(BG, background);
 	
-	switch (enterName)
+	switch (_phase)
 	{
-	case Ranking::ENTERNAME1:
+	case Ranking::ENTERNAME:
 
 		Renderer::Instance()->PushImage("PLAYER1_ENTER_NAME", { SCREEN_WIDTH / 2 - 250, SCREEN_HEIGHT / 2 - 40,500,80 });
 
 		break;
-	case Ranking::ENTERNAME2:
 
-		Renderer::Instance()->PushImage("PLAYER2_ENTER_NAME", { SCREEN_WIDTH / 2 - 250, SCREEN_HEIGHT / 2 - 40,500,80 });
-
-		break;
 	case Ranking::SHOWRANK:
 
 		for (int i = 0; i < 10; i++)
@@ -143,14 +141,20 @@ void Ranking::draw()
 
 void Ranking::update() 
 {
-	if (fromLevel) {
+	if (_phase == ENTERNAME) {
+	
+		std::string introName;
 		std::cin >> introName;
 
 		rank.push_back({ introName, maxScore });
 		//sort de rank
-		rank.resize(10);
+		std::sort(rank.begin(),rank.end());
+		std::reverse(rank.begin(), rank.end());
+		rank.pop_back();
 
-		estado = TOMENU;
+		loadRank();
+
+		_phase = SHOWRANK;
 	}
 }
 
@@ -162,10 +166,41 @@ void Ranking::inputHandler()
 
 
 		case SDL_MOUSEBUTTONDOWN:
+			
+			if (collisions::pointToRect({ evento.motion.x, evento.motion.y }, buttonBack.pos))	{//detecta si s'ha clickat a un boto
+				
+				
+				
+				//save ranking
 
-			if (collisions::pointToRect({ evento.motion.x, evento.motion.y }, buttonBack.pos))	//detecta si s'ha clickat a un boto
+				std::ofstream fentrada("../../res/files/ranking.bin", std::ios::out | std::ios::binary);
+
+
+				for (int i = 0; i < PLAYERS_ON_RANKING; i++) {
+
+
+					std::string name = rank[i].name;
+					size_t length = name.size();
+					int score = rank[i].score;
+
+
+					fentrada.write(reinterpret_cast<char*>(&length), sizeof(size_t)); // escriu la longitud del array				
+					
+
+					fentrada.write(name.c_str(), name.size()); // escriu array
+
+					fentrada.write(reinterpret_cast<char*>(&score), sizeof(score)); //escriu score
+				
+
+			}
+
+			fentrada.close();
+				
+				
+								
+				
 				estado = buttonBack._state;
-
+			}
 			break;
 
 		case SDL_QUIT:
@@ -174,4 +209,10 @@ void Ranking::inputHandler()
 
 		}
 	}
+}
+
+void Ranking::loadRank()
+{
+	for (int i = 0; i < 10; i++)
+		Renderer::Instance()->LoadTextureText(font3.id, { "PJ" + std::to_string(i + 1), rank[i].name + " - " + std::to_string(rank[i].score), Color{ 0,0,0,0 } });
 }
