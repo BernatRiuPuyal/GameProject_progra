@@ -56,8 +56,8 @@ Ranking::Ranking(bool comeFromLevel, int maxScore, int pjID)
 	
 	
 	//////////OMPLE VECTOR A MÀ PER PROVAR!!!!!!!!!!!!!!!!!! ---- Es podria usar com a ranking per defecte del joc???
-	for (int i = 0; i < 10; i++)
-		rank[i] = { "Jugador" + std::to_string(i + 1), 3000 - 246 * i };
+	//for (int i = 0; i < 10; i++)
+	//	rank[i] = { "Jugador" + std::to_string(i + 1), 3000 - 246 * i };
 	//////////////////////////////////////////////////////////
 
 	//Carrega textures amb les dades del vector

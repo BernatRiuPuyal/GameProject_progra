@@ -17,10 +17,7 @@ Game::~Game()
 }
 
 void Game::loop()
-
 {
-	
-
 
 	while (currentSc->estado != QUIT)
 	{
