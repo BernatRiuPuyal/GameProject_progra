@@ -16,34 +16,45 @@ Ranking::Ranking(bool comeFromLevel, int _maxScore, int pjID)
 
 	std::ifstream fentrada("../../res/files/ranking.bin", std::ios::in | std::ios::binary);
 
-	for (int i = 0; i < PLAYERS_ON_RANKING; i++) { //encara he provat res del binari
-
-		size_t length;
-		std::string name;
-		int score;
+	if (fentrada) { //comprova si existeix
 
 
-		fentrada.read(reinterpret_cast<char*>(&length), sizeof(size_t)); // llegeix la longitud del array
 
-		char *temp = new char[length + 1]; //crea auxiliar que guardarà el nom
 
-		fentrada.read(temp, length);
+		for (int i = 0; i < PLAYERS_ON_RANKING; i++) { //encara he provat res del binari
 
-		temp[length] = '\0';
+			size_t length;
+			std::string name;
+			int score;
 
-		name = temp;
 
-		delete[] temp;
+			fentrada.read(reinterpret_cast<char*>(&length), sizeof(size_t)); // llegeix la longitud del array
 
-		fentrada.read(reinterpret_cast<char*>(&score), sizeof(score));
+			char *temp = new char[length + 1]; //crea auxiliar que guardarà el nom
 
-		rank.push_back({ name,score});
+			fentrada.read(temp, length);
+
+			temp[length] = '\0';
+
+			name = temp;
+
+			delete[] temp;
+
+			fentrada.read(reinterpret_cast<char*>(&score), sizeof(score));
+
+			rank.push_back({ name,score });
+
+		}
+
+		fentrada.close();
 
 	}
+	else { // sino existeix omple el vector amb "Empty Slots" - es guardara en un nou ranking.bin
+		for (int i = 0; i < 10; i++)
+		rank.push_back( { "Empty Slot", 0 });
+		
 
-	fentrada.close();
-
-
+	}
 
 	//create button
 
@@ -56,12 +67,7 @@ Ranking::Ranking(bool comeFromLevel, int _maxScore, int pjID)
 	else if(pjID == 1)  Renderer::Instance()->LoadTextureText(font2.id, { "PLAYER1_ENTER_NAME","WINS 2, WRITE YOUR NAME:",Color{ 0,0,0,0 } });
 	
 	
-	//////////OMPLE VECTOR A MÀ PER PROVAR!!!!!!!!!!!!!!!!!! ---- Es podria usar com a ranking per defecte del joc???
-	/*for (int i = 0; i < 10; i++)
-	rank[i] = { "Jugador" + std::to_string(i + 1), 15 - i };
-	std::sort(rank.begin(), rank.end());
-	std::reverse(rank.begin(), rank.end());*/
-	//////////////////////////////////////////////////////////
+
 
 	//Carrega textures amb les dades del vector
 	
