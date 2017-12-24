@@ -108,5 +108,6 @@
     <None Include="..\..\res\files\ranking.bin">
       <Filter>Archivos de recursos</Filter>
     </None>
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
 </Project>
