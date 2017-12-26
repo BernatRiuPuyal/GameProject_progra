@@ -11,7 +11,7 @@ Game::Game()
 	currentSc = new Menu(); //Escena de inicio
 }
 
-Game::~Game()
+Game::~Game() // game on othe
 {
 
 }
