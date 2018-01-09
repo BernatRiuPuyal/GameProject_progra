@@ -2,6 +2,7 @@
 #include "Scene.h"
 #include "Menu.h"
 #include "Level.h"
+#include "Ranking.h"
 
 
 
@@ -10,18 +11,19 @@ Game::Game()
 	currentSc = new Menu(); //Escena de inicio
 }
 
-Game::~Game()
+Game::~Game() // game on othe
 {
 
 }
 
 void Game::loop()
 {
+
 	while (currentSc->estado != QUIT)
 	{
 		currentSc->inputHandler();
-		currentSc->update();
 		currentSc->draw();
+		currentSc->update();
 
 		if (oldState != currentSc->estado) {		//Control escenas
 
@@ -43,20 +45,22 @@ void Game::loop()
 
 			case RANKING:
 
+				currentSc = new Ranking(oldState!=INMENU, currentSc->maxScore, currentSc->playerID);
 				std::cout << "RANKING" << std::endl;
 
 				break;
 
 			case PLAY1:
 
-				currentSc = new Level();
+				currentSc = new Level(LEVEL1);
 
-				std::cout << "PLAY1" << std::endl;
+				std::cout << "PLAY1" << std::endl; //debug
 
 				break;
 
 			case PLAY2:
 
+				currentSc = new Level(LEVEL2);
 				std::cout << "PLAY2" << std::endl;
 
 				break;

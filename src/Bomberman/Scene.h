@@ -6,6 +6,7 @@
 #include <iostream>
 #include "Renderer.h"
 #include "Types.h"
+#include "collisions.hpp"
 
 class Scene
 {	
@@ -18,10 +19,15 @@ protected:
 
 	Font font;			//font sense números
 	Font font2;			//amb
+	Font font3;			//ranking
+
 
 public:
 
 	state estado;		//indica l'escena
+
+	int maxScore; //puntuació pel ranking
+	int playerID;   //player pel ranking
 
 	//METODES
 public:

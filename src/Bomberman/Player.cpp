@@ -9,7 +9,7 @@
 Player::Player(colorPJ pj, int x, int y)
 {
 	player = pj;		//identifica al player segons el seu color 
-	lives = 3;
+	lives;
 	score = 0;
 
 	pos = { x * SCRIPT_SIZE, y *  SCRIPT_SIZE + HUD_HEIGHT };	//transforma la coordenada del map en pixels

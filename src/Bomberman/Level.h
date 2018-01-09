@@ -6,6 +6,13 @@
 #include "Player.h"
 #include <time.h>
 
+#include <sstream>
+#include "XML\rapidxml.hpp"
+#include "XML\rapidxml_iterators.hpp"
+#include "XML\rapidxml_print.hpp"
+#include "XML\rapidxml_utils.hpp"
+
+
 class Level :
 	public Scene
 {
@@ -16,7 +23,7 @@ private:
 
 	//Array que allotjarà als players
 	int static const numPlayers = 2;
-	Player *pj[numPlayers];
+	Player *pj[numPlayers]; //array de "Player "Objects"
 
 	//Gràfics del HUD
 	SDL_Rect spriteW, spriteR, rect;	//Icones jugadors	(sprite = posició a pantalla i full d'sprites, rect = porció del sprite)
@@ -38,11 +45,10 @@ private:
 	clock_t lastTime;
 	float timeDown;
 	float deltaTime;
-	
 
 	//METODES
 public:
-	Level();
+	Level(LevelConfig set);
 	~Level();
 
 private:
