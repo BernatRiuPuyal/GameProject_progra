@@ -27,7 +27,9 @@ void GraphD::insertArch(arch _arch) { //pot ser que existeixin dos arches iguals
 		nodes[_arch.end] = new nexus;
 		nodes[_arch.end]->data = _arch.end;
 	}
-	else if(nodes[_arch.origin]->)
+	else {
+
+	};
 			
 
 	nodes[_arch.origin]->links.push_back(nodes[_arch.end]);
